@@ -2,10 +2,10 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title></title>
-	<style type="text/css">
-				
-	</style>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Parking System Dashboard</title>
+	<link rel="stylesheet" type="text/css" href="/css/main.css">
+	<!-- jQuery script tag -->
 	<script
   src="https://code.jquery.com/jquery-3.6.0.js"
   integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
@@ -16,32 +16,6 @@
 	<div id="info"></div>
 
 	<script src="/socket.io/socket.io.js"></script>
-	<script>
-		function pullNodeState(){
-			let request = $.ajax({
-				url: '/getState',
-				method: 'GET',
-			})
-
-			request.done((data)=>{
-				data = JSON.parse(data);
-				//console.log(data);
-				const div = document.createElement('div');
-				for(i of data){
-					const p = document.createElement('p');
-					p.innerHTML = 'nodeId: '+i.nodeId+' | state: '+i.state;
-					div.appendChild(p);
-				}
-				$('#info').html(div.innerHTML);
-			});
-		}
-		pullNodeState();
-		
-		var socket = io();
-
-		socket.on('state update', function(msg) {
-			pullNodeState();
-		});
-	</script>
+	<script src="/js/main.js"></script>
 </body>
 </html>

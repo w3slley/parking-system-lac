@@ -1,0 +1,45 @@
+body{
+	margin: 0;
+}
+
+h1{
+	font-family: ubuntu;
+}
+
+#info{
+	width: 100%;
+}
+
+.nodes{
+	display: grid;
+	grid-template-columns: auto auto auto;
+	background-color: #262626;
+}
+
+.node{
+	color:  white;
+  	border: 3px solid white;
+	text-align: center;
+	padding: 10px;
+}
+.led{
+	text-align: center;
+	border-radius: 100%;
+	margin:  0 auto;
+	width: 90px;
+	height: 90px;
+}
+
+.red{
+	background-color: red;
+}
+
+.green{
+	background-color: green;
+}
+
+@media screen and (max-width: 900px){
+	#info{
+		height: 100%;
+	}
+}

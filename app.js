@@ -8,7 +8,11 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 
+//body parser middleware
 app.use(bodyParser.json());
+
+//setting static folder
+app.use(express.static('assets'));
 
 app.get('/dashboard', (req, res) => {
   res.sendFile(__dirname + '/index.html');
