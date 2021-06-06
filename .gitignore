@@ -1,2 +1,4 @@
 node_modules/
+database/
 package-lock.json
+.env
