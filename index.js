@@ -12,8 +12,17 @@ app.get('/',(req, res)=>{
 app.post('/api/v1/updateState',(req, res)=>{
 	let body = req.body;
 	//let latitude = parseFloat(body.latitude);
-	console.log(body);
-	res.send('{"status":"success"}\n');
+
+	let message;
+	if(Object.keys(body).length != 4){
+		message = '{"status":"error"}';
+	}
+	else{
+		message = '{"status":"success"}';
+		console.log(body);
+	}
+	res.send(message+'\n');
+	
 })
 
 app.listen(port,()=>{
