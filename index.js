@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const db = require('./config/db.js');
+const port = process.env.PORT || 3000;
 const http = require('http');
 const bodyParser = require('body-parser');
 const server = http.createServer(app);
@@ -54,6 +55,6 @@ io.on('connection', (socket) => {
 
 
 
-server.listen(3000, () => {
-  console.log('listening on *:3000');
+server.listen(port, () => {
+  console.log(`Server listening at port ${port}`);
 });
