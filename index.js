@@ -1,29 +1,16 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const app = express();
-const port = process.env.PORT || 3000;
 const db = require('./config/db.js');
+const http = require('http');
+const bodyParser = require('body-parser');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
 
-//body parser middleware
 app.use(bodyParser.json());
 
-//setting static public folder
-app.use(express.static('assets'));
-
-//Handlebars middleware
-const handlebars = require('express-handlebars');
-
-//changed file extention from .handlebars to .hbs with the following config
-app.engine('.hbs', handlebars({extname: '.hbs'}));
-app.set('view engine', '.hbs');
-
-
-app.get('/dashboard',(req, res)=>{
-	db.query('SELECT * FROM nodes', (err, data)=>{
-		if(err) throw err;
-
-		res.render('index',{nodes: data});
-	});
+app.get('/dashboard', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
 });
 
 app.get('/getState',(req, res)=>{
@@ -38,16 +25,15 @@ app.post('/api/v1/updateState',(req, res)=>{
 	let body = req.body;
 
 	console.log(body);
-	if(Object.keys(body).length != 4){
+	if(Object.keys(body).length != 2 ){
 		res.send('{"status":"error"}\n');
 	}
 	else{
 		db.query('SELECT * FROM nodes WHERE nodeId = ?', body.nodeId,(err, data)=>{
 			if(data.length != 0){
-				console.log(body.state, body.nodeId);
 				db.query('UPDATE nodes SET state = ? WHERE nodeId = ?',[body.state, body.nodeId],(err, data)=>{
 					if(err) throw err;
-
+					io.emit('state update', {message:'this is a test'});
 					res.send('{"status":"success"}\n');
 				});
 			}
@@ -58,6 +44,16 @@ app.post('/api/v1/updateState',(req, res)=>{
 	}
 });
 
-app.listen(port,()=>{
-	console.log(`Server listening at port ${port}`);
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('disconnect', () => {
+	  console.log('a user disconnected');
+	});
+});
+
+
+
+server.listen(3000, () => {
+  console.log('listening on *:3000');
 });

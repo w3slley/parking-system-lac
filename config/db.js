@@ -2,9 +2,9 @@ const mysql = require('mysql');
 //setting db config variables
 
 let host = 'us-cdbr-east-04.cleardb.com';
-let user = 'b056b42a9aeb4d';
-let password = 'fbb46108';
-let database = 'heroku_606d8ff0f5fb305';
+let user = 'b7440dc6fad967';
+let password = 'f7ed492a';
+let database = 'heroku_25c5f135f21a04a';
 
 const connection = mysql.createConnection({host, user, password, database});
 //making connection to database

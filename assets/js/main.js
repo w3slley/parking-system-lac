@@ -1,3 +1,5 @@
+const socket = io();
+
 function pullNodeState(){
 	let request = $.ajax({
 		url: '/getState',
@@ -15,8 +17,11 @@ function pullNodeState(){
 		}
 		$('#info').html(div.innerHTML);
 
-		setTimeout(pullNodeState(), 1000);
+		//setTimeout(pullNodeState(), 1000);
 	});
 }
 
-pullNodeState();
+socket.on('state update', function(msg) {
+	console.log('db was updated ->'+msg.message);
+});
+//pullNodeState();
