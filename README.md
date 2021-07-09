@@ -7,4 +7,4 @@ More information about the project can be found [here](https://w3slley.github.io
 ## Prototype demo
 The following gif shows the demo of a basic implementation of the system using an optical sensor to detect the parking space state (free or occupied).
 
-![demo](https://w3slley.github.io/ops/demo.gif)
+![](assets/videos/demo-parking-system-complete.gif)
